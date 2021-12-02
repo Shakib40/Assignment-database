@@ -1,0 +1,14 @@
+npm init -y
+
+"server": "nodemon src/server"
+
+npm i express
+
+npm i express mongoose
+
+npm run server 
+
+
+npm install nodemailer
+
+npm install dotenv
