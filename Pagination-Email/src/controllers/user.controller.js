@@ -2,7 +2,7 @@ const express = require('express');
 
 const sendMail = require('../utils/send-mail');
 
-const Product = require("../models/product.model");
+const User = require("../models/user.model");
 
 
 const router = express.Router();
@@ -21,7 +21,7 @@ router.post("/" , async(req , res) =>{
     try{
        
         
-        const product = await Product.create(req.body);
+        const users = await User.create(req.body);
 
         sendMail(
             "me@gmail.com",
@@ -40,7 +40,7 @@ router.post("/" , async(req , res) =>{
 
         );
 
-        return res.status(201).json( {product} );
+        return res.status(201).json( {users} );
 
     }catch(err){
          return res.status(500).json({status:"Failed" ,  message: err.message});
@@ -56,11 +56,11 @@ router.get('/' , async (req, res) => {
  
         const skip = (page-1)* size;
 
-        const products = await Product.find().skip(skip).limit(size).lean().exec();
+        const users = await User.find().skip(skip).limit(size).lean().exec();
         
-        const totalPages = Math.ceil( (await Product.find().countDocuments())  / size);
+        const totalPages = Math.ceil( (await User.find().countDocuments())  / size);
 
-        return res.json( {products , totalPages});
+        return res.json( {users , totalPages});
 
     }catch(err){
          return res.status(500).json({status:"failed" ,  message: err.message});
